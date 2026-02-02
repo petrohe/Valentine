@@ -49,3 +49,8 @@ button {
   background: #ff4d4d;
   color: white;
 }
+
+#noBtn {
+  transition: all 0.2s ease;
+}
+
