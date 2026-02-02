@@ -4,7 +4,10 @@ const container = document.querySelector(".buttons");
 
 let noCount = 0;
 
-// move the No button
+// ensure No button starts somewhere valid
+noBtn.style.left = "0px";
+noBtn.style.top = "0px";
+
 function moveNoButton() {
   const containerRect = container.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
@@ -12,46 +15,26 @@ function moveNoButton() {
   const maxX = containerRect.width - btnRect.width;
   const maxY = containerRect.height - btnRect.height;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
-  noBtn.style.left = `${randomX}px`;
-  noBtn.style.top = `${randomY}px`;
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
 
   noCount++;
-  noBtn.innerText = `Nice try (${noCount}) 😏`;
+  noBtn.textContent = `Nice try (${noCount}) 😏`;
 }
 
-// desktop hover
-noBtn.addEventListener("mouseover", moveNoButton);
+// DESKTOP: move on hover
+noBtn.addEventListener("mouseenter", moveNoButton);
 
-// mobile touch
+// MOBILE: move on touch
 noBtn.addEventListener("touchstart", (e) => {
   e.preventDefault();
   moveNoButton();
 });
 
-// if she somehow clicks No
-noBtn.addEventListener("click", () => {
-  document.body.innerHTML = `
-    <div style="
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      font-size:32px;
-      color:white;
-      text-align:center;
-      padding:20px;
-    ">
-      Okay okay 😅<br/>
-      I’ll take that as a maybe…<br/><br/>
-      But you’re still kinda amazing 💖
-    </div>
-  `;
-});
-
-// YES button celebration
+// YES button
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <div style="
@@ -59,19 +42,44 @@ yesBtn.addEventListener("click", () => {
       justify-content:center;
       align-items:center;
       height:100vh;
-      font-size:40px;
+      flex-direction:column;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
       color:white;
       text-align:center;
-      flex-direction:column;
+      font-size:40px;
     ">
       YAYYYYY 🎉💖<br/>
       Best Valentine ever 🥰
     </div>
   `;
 
-  confettiExplosion();
+  confetti();
 });
 
-// CONFETTI 🎉
-function confettiExplosion() {
-  for (let i = 0; i
+// CONFETTI
+function confetti() {
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement("div");
+    c.style.position = "fixed";
+    c.style.width = "8px";
+    c.style.height = "8px";
+    c.style.backgroundColor = randomColor();
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.top = "-10px";
+    c.style.opacity = Math.random();
+    c.style.transition = "top 2s ease-out, opacity 2s";
+    document.body.appendChild(c);
+
+    setTimeout(() => {
+      c.style.top = "110vh";
+      c.style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => c.remove(), 2000);
+  }
+}
+
+function randomColor() {
+  const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0", "#f72585"];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
