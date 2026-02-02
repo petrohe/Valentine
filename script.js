@@ -1,7 +1,10 @@
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
 const container = document.querySelector(".buttons");
 
-// function to move the button
+let noCount = 0;
+
+// move the No button
 function moveNoButton() {
   const containerRect = container.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
@@ -14,6 +17,9 @@ function moveNoButton() {
 
   noBtn.style.left = `${randomX}px`;
   noBtn.style.top = `${randomY}px`;
+
+  noCount++;
+  noBtn.innerText = `Nice try (${noCount}) 😏`;
 }
 
 // desktop hover
@@ -21,12 +27,32 @@ noBtn.addEventListener("mouseover", moveNoButton);
 
 // mobile touch
 noBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // stops accidental tap
+  e.preventDefault();
   moveNoButton();
 });
 
+// if she somehow clicks No
+noBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      font-size:32px;
+      color:white;
+      text-align:center;
+      padding:20px;
+    ">
+      Okay okay 😅<br/>
+      I’ll take that as a maybe…<br/><br/>
+      But you’re still kinda amazing 💖
+    </div>
+  `;
+});
+
 // YES button celebration
-document.getElementById("yesBtn").addEventListener("click", () => {
+yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <div style="
       display:flex;
@@ -35,5 +61,17 @@ document.getElementById("yesBtn").addEventListener("click", () => {
       height:100vh;
       font-size:40px;
       color:white;
-      text-align:cente
+      text-align:center;
+      flex-direction:column;
+    ">
+      YAYYYYY 🎉💖<br/>
+      Best Valentine ever 🥰
+    </div>
+  `;
 
+  confettiExplosion();
+});
+
+// CONFETTI 🎉
+function confettiExplosion() {
+  for (let i = 0; i
