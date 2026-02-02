@@ -1,7 +1,8 @@
 const noBtn = document.getElementById("noBtn");
 const container = document.querySelector(".buttons");
 
-noBtn.addEventListener("mouseover", () => {
+// function to move the button
+function moveNoButton() {
   const containerRect = container.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
 
@@ -13,8 +14,18 @@ noBtn.addEventListener("mouseover", () => {
 
   noBtn.style.left = `${randomX}px`;
   noBtn.style.top = `${randomY}px`;
+}
+
+// desktop hover
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// mobile touch
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // stops accidental tap
+  moveNoButton();
 });
 
+// YES button celebration
 document.getElementById("yesBtn").addEventListener("click", () => {
   document.body.innerHTML = `
     <div style="
@@ -24,9 +35,5 @@ document.getElementById("yesBtn").addEventListener("click", () => {
       height:100vh;
       font-size:40px;
       color:white;
-      text-align:center;
-    ">
-      YAYYYY 💕🥰<br/>Best Valentine ever.
-    </div>
-  `;
-});
+      text-align:cente
+
