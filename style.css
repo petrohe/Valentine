@@ -54,3 +54,11 @@ button {
   transition: all 0.2s ease;
 }
 
+.buttons {
+  position: relative;
+}
+
+#noBtn {
+  position: absolute;
+}
+
